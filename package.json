@@ -1,0 +1,35 @@
+{
+  "name": "saas-prospeccao-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma SaaS Multi-Tenant de Prospecção Local, Geração de Sites SPA com IA e Venda Integrada",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @plataforma/api --filter @plataforma/worker --filter @plataforma/web dev",
+    "dev:api": "pnpm --filter @plataforma/api dev",
+    "dev:worker": "pnpm --filter @plataforma/worker dev",
+    "dev:web": "pnpm --filter @plataforma/web dev",
+    "build": "pnpm --filter @plataforma/shared build && pnpm --filter @plataforma/db build && pnpm --filter @plataforma/queue build && pnpm --filter @plataforma/integrations build && pnpm --filter @plataforma/templates build && pnpm --filter @plataforma/api build && pnpm --filter @plataforma/worker build && pnpm --filter @plataforma/web build",
+    "typecheck": "pnpm -r typecheck",
+    "db:migrate": "pnpm --filter @plataforma/db migrate",
+    "db:seed": "pnpm --filter @plataforma/db seed",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@plataforma/db": "workspace:*",
+    "@plataforma/integrations": "workspace:*",
+    "@plataforma/queue": "workspace:*",
+    "@plataforma/shared": "workspace:*",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.0",
+    "drizzle-orm": "^0.41.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

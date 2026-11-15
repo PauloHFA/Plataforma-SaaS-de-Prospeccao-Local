@@ -1,0 +1,31 @@
+{
+	admin :2019
+	on_demand_tls {
+		ask http://api:4000/internal/caddy/ask
+	}
+}
+
+# Painel SaaS Principal
+app.{$BASE_DOMAIN:localhost} {
+	reverse_proxy web:3000
+}
+
+# Wildcard para previews instantâneos (ex: clinica-sorriso.preview.dominio.com)
+*.preview.{$BASE_DOMAIN:localhost} {
+	tls {
+		on_demand
+	}
+	reverse_proxy web:3000 {
+		header_up X-Forwarded-Host {host}
+	}
+}
+
+# Domínios customizados de clientes finais (SSL automático On-Demand TLS após validação DNS)
+:443 {
+	tls {
+		on_demand
+	}
+	reverse_proxy web:3000 {
+		header_up X-Forwarded-Host {host}
+	}
+}
